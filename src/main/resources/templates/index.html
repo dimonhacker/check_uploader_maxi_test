@@ -5,6 +5,22 @@
 
 </head>
 <body>
+<h3>Statistics</h3>
+<table width="50%">
+    <tr>
+        <!--th width="5%">Sale</th-->
+        <!--th width="5%">Date</th-->
+        <th width="20%">name</th>
+        <th width="5%">price</th>
+        <th width="5%">count</th>
+    </tr>
+    <tr th:each="product: ${products}">
+        <!--td th:text="${#dates.format(sale.date, 'dd-MM-yyyy HH:mm')}"></td-->
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.count}"></td>
 
+    </tr>
+</table>
 </body>
 </html>

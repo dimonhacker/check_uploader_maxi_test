@@ -1,32 +1,27 @@
 package ru.petrov.check_uploader_maxi_test.Entity;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "sale")
 public class Sale {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
-    private int product_code;
+    private long card_number;
 
-    @Column
-    private String name;
+    @CreatedDate
+    private Calendar date;
 
-    @Column
-    private double price;
-
-    @Column
-    private short count;
-
-    @JoinColumn(name = "cheque_id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Cheque cheque_id;
-
-    public Sale() {
-    }
+    @OneToMany(mappedBy = "sale_id")
+    private List<Product> products;
 
     public long getId() {
         return id;
@@ -36,35 +31,27 @@ public class Sale {
         this.id = id;
     }
 
-    public int getProduct_code() {
-        return product_code;
+    public long getCard_number() {
+        return card_number;
     }
 
-    public void setProduct_code(int product_code) {
-        this.product_code = product_code;
+    public void setCard_number(long card_number) {
+        this.card_number = card_number;
     }
 
-    public String getName() {
-        return name;
+    public Calendar getDate() {
+        return date;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 
-    public double getPrice() {
-        return price;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public short getCount() {
-        return count;
-    }
-
-    public void setCount(short count) {
-        this.count = count;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
