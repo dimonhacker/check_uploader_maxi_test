@@ -1,24 +1,32 @@
 package ru.petrov.check_uploader_maxi_test.Entity;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "product")
+@JacksonXmlRootElement
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
-    private int product_code;
+    @JacksonXmlProperty(localName = "PRODUCT_CODE")
+    private String product_code;
 
     @Column
+    @JacksonXmlProperty(localName = "NAME")
     private String name;
 
     @Column
-    private double price;
+    @JacksonXmlProperty(localName = "PRICE")
+    private String price;
 
     @Column
+    @JacksonXmlProperty(localName = "COUNT")
     private short count;
 
     @JoinColumn(name = "sale_id")
@@ -33,11 +41,11 @@ public class Product {
         this.id = id;
     }
 
-    public int getProduct_code() {
+    public String getProduct_code() {
         return product_code;
     }
 
-    public void setProduct_code(int product_code) {
+    public void setProduct_code(String product_code) {
         this.product_code = product_code;
     }
 
@@ -49,11 +57,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

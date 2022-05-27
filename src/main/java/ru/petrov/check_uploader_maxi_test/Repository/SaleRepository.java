@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.petrov.check_uploader_maxi_test.Entity.Sale;
 
 @Repository
-public interface SaleRepository extends CrudRepository<Sale,Long> {
+public interface SaleRepository extends CrudRepository<Sale, Long> {
 
 
 }

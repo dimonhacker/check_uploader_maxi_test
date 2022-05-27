@@ -16,7 +16,11 @@ public class ProductService {
     ProductRepository productRepository;
 
 
-    public  List<Product> getBySale(Sale sale){
+    public List<Product> getBySale(Sale sale) {
         return productRepository.findBySale(sale.getId());
+    }
+
+    public void saveProduct(Product product) {
+        productRepository.save(product);
     }
 }

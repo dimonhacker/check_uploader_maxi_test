@@ -9,8 +9,7 @@ import ru.petrov.check_uploader_maxi_test.Entity.Sale;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product,Long> {
-
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
 
     @Query(value = "Select * from product where sale_id = :id", nativeQuery = true)
