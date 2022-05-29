@@ -1,6 +1,5 @@
 package ru.petrov.check_uploader_maxi_test.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -11,7 +10,13 @@ import java.util.Calendar;
 import java.util.List;
 
 @Entity
-@Table(name = "sale")
+@Table(name = "sale",
+        indexes = {
+                @Index(name = "cardNumber", columnList = "cardNumber"),
+                @Index(name = "id", columnList = "id")
+        },
+        uniqueConstraints = {@UniqueConstraint(name = "UniqueNumberAndDate", columnNames = {"cardNumber", "date"})}
+)
 
 @JacksonXmlRootElement(localName = "SALE")
 public class Sale {

@@ -6,7 +6,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product",
+        indexes = {
+                @Index(name = "sale_id", columnList = "sale_id"),
+                @Index(name = "id", columnList = "id")
+        }
+)
 @JacksonXmlRootElement
 public class Product {
     @Id
@@ -30,7 +35,7 @@ public class Product {
     private short count;
 
     @JoinColumn(name = "sale_id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Sale sale_id;
 
     public long getId() {
@@ -41,12 +46,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProduct_code() {
+    public String getProductCode() {
         return productCode;
     }
 
-    public void setProduct_code(String product_code) {
-        this.productCode = product_code;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public String getName() {
@@ -79,5 +84,20 @@ public class Product {
 
     public void setSale_id(Sale sale_id) {
         this.sale_id = sale_id;
+    }
+
+    public Product() {
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productCode='" + productCode + '\'' +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", count=" + count +
+                ", sale_id=" + sale_id +
+                '}';
     }
 }

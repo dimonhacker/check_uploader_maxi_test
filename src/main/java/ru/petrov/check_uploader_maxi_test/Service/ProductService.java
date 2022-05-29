@@ -21,8 +21,11 @@ public class ProductService {
         return productRepository.findTopBySale(cardNumber);
     }
 
-    public void saveProduct(Product product) {
-        productRepository.save(product);
+    public void saveAllProduct(List<Product> productList, Sale sale) {
+        for (Product p:productList) {
+            p.setSale_id(sale);
+        }
+        productRepository.saveAll(productList);
     }
 
     public Double getSumOfTheDay(Calendar calendar) {

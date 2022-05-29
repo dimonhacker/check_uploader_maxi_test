@@ -1,7 +1,5 @@
 package ru.petrov.check_uploader_maxi_test.Controller;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.petrov.check_uploader_maxi_test.Entity.MyCalendar;
 import ru.petrov.check_uploader_maxi_test.Entity.Product;
 import ru.petrov.check_uploader_maxi_test.Entity.Sale;
-import ru.petrov.check_uploader_maxi_test.Jackson.Sales;
 import ru.petrov.check_uploader_maxi_test.Service.ProductService;
 import ru.petrov.check_uploader_maxi_test.Service.SaleService;
 
-import javax.xml.stream.*;
-import java.io.*;
-import java.util.Calendar;
 import java.util.List;
 
 @Controller
