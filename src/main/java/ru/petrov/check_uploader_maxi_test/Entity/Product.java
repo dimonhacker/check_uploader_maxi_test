@@ -10,12 +10,12 @@ import javax.persistence.*;
 @JacksonXmlRootElement
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
     @JacksonXmlProperty(localName = "PRODUCT_CODE")
-    private String product_code;
+    private String productCode;
 
     @Column
     @JacksonXmlProperty(localName = "NAME")
@@ -42,11 +42,11 @@ public class Product {
     }
 
     public String getProduct_code() {
-        return product_code;
+        return productCode;
     }
 
     public void setProduct_code(String product_code) {
-        this.product_code = product_code;
+        this.productCode = product_code;
     }
 
     public String getName() {

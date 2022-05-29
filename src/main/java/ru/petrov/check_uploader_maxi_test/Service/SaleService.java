@@ -13,14 +13,13 @@ public class SaleService {
     @Autowired
     SaleRepository saleRepository;
 
-    public Sale getSale(){
-        return saleRepository.findById(0L).orElse(null);
-    }
-    public List<Sale> getAll(){
-        return (List<Sale>) saleRepository.findAll();
-    }
-
     public void saveSale(Sale sale) {
         saleRepository.save(sale);
+    }
+
+    public List<Sale> findByCardNumber(Long card_number) {
+        List<Sale> s ;
+        s = saleRepository.findByCardNumber(card_number);
+        return s;
     }
 }

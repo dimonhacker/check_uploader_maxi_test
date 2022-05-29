@@ -6,6 +6,7 @@ import ru.petrov.check_uploader_maxi_test.Entity.Product;
 import ru.petrov.check_uploader_maxi_test.Entity.Sale;
 import ru.petrov.check_uploader_maxi_test.Repository.ProductRepository;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -16,11 +17,17 @@ public class ProductService {
     ProductRepository productRepository;
 
 
-    public List<Product> getBySale(Sale sale) {
-        return productRepository.findBySale(sale.getId());
+    public List<Product> getTop3(Long cardNumber) {
+        return productRepository.findTopBySale(cardNumber);
     }
 
     public void saveProduct(Product product) {
         productRepository.save(product);
+    }
+
+    public Double getSumOfTheDay(Calendar calendar) {
+        Double sum = productRepository.getSumOfTheDay(calendar);
+        if (sum == null) sum = 0d;
+        return sum;
     }
 }

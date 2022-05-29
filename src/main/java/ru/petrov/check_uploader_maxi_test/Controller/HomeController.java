@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.petrov.check_uploader_maxi_test.Entity.MyCalendar;
 import ru.petrov.check_uploader_maxi_test.Entity.Product;
 import ru.petrov.check_uploader_maxi_test.Entity.Sale;
 import ru.petrov.check_uploader_maxi_test.Jackson.Sales;
@@ -15,6 +19,7 @@ import ru.petrov.check_uploader_maxi_test.Service.SaleService;
 
 import javax.xml.stream.*;
 import java.io.*;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -31,32 +36,42 @@ public class HomeController {
 
     @GetMapping("/")
     public String indexPage(Model model) {
-        List<Sale> sales = saleService.getAll();
-        model.addAttribute("products", productService.getBySale(sales.get(0)));
+        model.addAttribute("myCalendar", new MyCalendar());
         return "index";
     }
-    @GetMapping("/load")
-    public String loadPage(Model model) {
-        try {
-            XMLInputFactory f = XMLInputFactory.newFactory();
-            XMLStreamReader sr = f.createXMLStreamReader(new FileInputStream(filePath));
-            XmlMapper mapper = new XmlMapper();
-            Sales sales = mapper.readValue(sr, Sales.class);
-            for (Sale s : sales.getSales()) {
-                saleService.saveSale(s);
-                for (Product p : s.getProducts()) {
-                    p.setSale_id(s);
-                    productService.saveProduct(p);
+
+    @PostMapping("/")
+    public String statPage(
+            @RequestParam(value = "cardNumber", required = false) String cardNumber,
+            @ModelAttribute("myCalendar") MyCalendar calendar,
+            Model model) {
+        String error = null;
+        if (cardNumber != null) {
+            Long tmp = null;
+            try {
+                tmp = Long.parseLong(cardNumber);
+            } catch (NumberFormatException exc) {
+                error = String.format("Не верно введен номер карты: %s", cardNumber);
+            }
+            if (tmp != null) {
+                List<Sale> sale = saleService.findByCardNumber(tmp);
+                if (sale != null) {
+                    model.addAttribute("sale", sale);
+                    List<Product> productList = productService.getTop3(tmp);
+                    model.addAttribute("top3", productList);
                 }
             }
-            sr.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
         }
+        if (calendar != null) {
+            double sum = productService.getSumOfTheDay(calendar.getCalendar());
 
+            model.addAttribute("money", sum);
+        }
+        model.addAttribute("error", error);
         return "index";
     }
+
+
+
+
 }

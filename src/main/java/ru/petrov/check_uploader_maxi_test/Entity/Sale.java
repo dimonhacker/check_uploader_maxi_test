@@ -18,12 +18,12 @@ public class Sale {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
     @JacksonXmlProperty(localName = "CARD_NUMBER")
-    private Long card_number;
+    private Long cardNumber;
 
     @CreatedDate
     @JacksonXmlProperty(localName = "DATE")
@@ -41,12 +41,12 @@ public class Sale {
         this.id = id;
     }
 
-    public Long getCard_number() {
-        return card_number;
+    public Long getCardNumber() {
+        return cardNumber;
     }
 
-    public void setCard_number(Long card_number) {
-        this.card_number = card_number;
+    public void setCardNumber(Long cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public Calendar getDate() {
@@ -65,4 +65,13 @@ public class Sale {
         this.products = products;
     }
 
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", cardNumber=" + cardNumber +
+                ", date=" + date +
+                ", products=" + products +
+                '}';
+    }
 }

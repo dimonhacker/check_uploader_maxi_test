@@ -5,22 +5,66 @@
 
 </head>
 <body>
-<h3>Statistics</h3>
-<table width="30%">
+<h2>Отчеты</h2>
+<form th:method="POST" th:action="@{/}" >
+    <div>
+        <label>Номер карты</label><br>
+        <input type="text" id="cardNumber" name="cardNumber"/><input type="submit" value="Найти" class="buttons">
+    </div>
+    <br><br>
+</form>
+<div th:if="${sale !=null && sale.size()>0}">
+
+    <h3>Топ 3 продукта</h3>
+    <table width="45%">
+        <tr>
+            <th width="5%"><b>Номер карты</b></th>
+            <td width="20%"><b>Наименование</b></td>
+            <td width="5%"><b>Количество</b></td>
+        </tr>
+        <tr th:each="product: ${top3}">
+            <td th:text="${sale.get(0).getCardNumber}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.count}"></td>
+        </tr>
+    </table>
+    <hr/>
+    <h3>Все продажи по карте</h3>
+<table width="45%">
     <tr>
-        <!--th width="5%">Sale</th-->
-        <!--th width="5%">Date</th-->
-        <td width="20%"><b>name</b></td>
-        <td width="5%"><b>price</b></td>
-        <td width="5%"><b>count</b></td>
+        <th width="5%"><b>Номер карты</b></th>
+        <th width="10%"><b>Дата</b></th>
+        <td width="20%"><b>Наименование</b></td>
+        <td width="5%"><b>Цена</b></td>
+        <td width="5%"><b>Количество</b></td>
     </tr>
-    <tr th:each="product: ${products}">
-        <!--td th:text="${#dates.format(sale.date, 'dd-MM-yyyy HH:mm')}"></td-->
+
+    <span th:each="s: ${sale}">
+    <tr th:each="product: ${s.getProducts()}">
+        <td th:text="${s.getCardNumber}"></td>
+        <td th:text="${#dates.format(s.date, 'dd-MM-yyyy HH:mm')}"></td>
         <td th:text="${product.name}"></td>
         <td th:text="${product.price}"></td>
         <td th:text="${product.count}"></td>
-
     </tr>
+    </span>
 </table>
+</div>
+<div th:if="${error==null && money==null}">
+<p th:if="${sale==null || sale.size==0}">Нет информации по данной карте.</p>
+</div>
+<div th:if="${error!=null}"><p th:text="${error}"></p></div>
+<div>
+    <hr/>
+    <hr/>
+    <h3>Общая сумма покупок на дату</h3>
+    <form th:method="POST" th:action="@{/}" th:object="${myCalendar}"  >
+        <input type ="date" id="date"  name = "calendar" th:field="*{calendar}"/>
+        <input type="submit" value="Запросить"/><br>
+    </form>
+    <div th:if="${money!=null}">
+    <p th:text="${money}"/>
+    </div>
+</div>
 </body>
 </html>
