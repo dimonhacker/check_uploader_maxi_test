@@ -18,7 +18,7 @@ public class SaleService {
     }
 
     public List<Sale> findByCardNumber(Long card_number) {
-        List<Sale> s ;
+        List<Sale> s;
         s = saleRepository.findByCardNumber(card_number);
         return s;
     }

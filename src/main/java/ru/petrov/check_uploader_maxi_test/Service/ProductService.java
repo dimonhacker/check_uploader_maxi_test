@@ -22,7 +22,7 @@ public class ProductService {
     }
 
     public void saveAllProduct(List<Product> productList, Sale sale) {
-        for (Product p:productList) {
+        for (Product p : productList) {
             p.setSale_id(sale);
         }
         productRepository.saveAll(productList);

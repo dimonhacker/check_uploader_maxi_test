@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.petrov.check_uploader_maxi_test.Entity.Product;
-import ru.petrov.check_uploader_maxi_test.Entity.Sale;
 
 import java.util.Calendar;
 import java.util.List;

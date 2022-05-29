@@ -69,9 +69,9 @@ public class LoadService {
         File[] files = batchPath.toFile().listFiles();
         for (File f : files) {
             try {
-                if(f.isDirectory()) continue;
+                if (f.isDirectory()) continue;
                 loadFromFile(f.getAbsolutePath());
-                logger.log(Level.INFO,"Loaded and can be removed: "+f.getAbsolutePath());
+                logger.log(Level.INFO, "Loaded and can be removed: " + f.getAbsolutePath());
 
             } catch (Exception ex) {
                 logger.log(Level.WARNING, ex.getMessage());
