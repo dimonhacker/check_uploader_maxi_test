@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: ru.petrov.check_uploader_maxi_test.CheckUploaderMaxiTestAppl
+ ication
+
